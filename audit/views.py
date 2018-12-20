@@ -1,8 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponse, Http404
-
+# Warning that the Django tutorial says that
+# shortcuts couple the model to the view
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, HttpRequest, Http404
 
 from .models import Submittal
+
 
 # Create your views here.
 
@@ -13,21 +15,42 @@ def index(request):
     # context = {'list_name': 'Submittals',
     #            'submittals': Submittal.objects.all(), }
     # return HttpResponse(template.render(context, request))
-    context = {'list_name': 'Submittals',
-                'submittals': Submittal.objects.all(), }
+    context = {'list_name': 'Submittals', 'submittals': Submittal.objects.all(), }
     return render(request, 'audit/submittals.html', context)
+
 
 def work(request, work_id: int):
     return HttpResponse(f"looking at  work {work_id}")
 
-def contributor(request,c_id: int):
+
+def contributor(request, c_id: int):
     return HttpResponse(f"Looking up contributor {c_id}")
 
+
 def submittal(request, submittal_id: int):
+    """
+    Redirect to safe or cute method
+    :param request:
+    :param submittal_id:
+    :return:
+    """
+    return submittal_cute(request, submittal_id)
+
+
+def submittal_cute(request: HttpRequest, submittal_id: int) -> HttpResponse:
+    """
+    Use shortcut, which couples view and model more than we'd like
+    :param request:
+    :param submittal_id:
+    :return:
+    """
+    a_submittal = get_object_or_404(Submittal, pk=submittal_id)
+    return render(request, 'audit/submittal.html', {'submittal': a_submittal})
+
+
+def submittal_safe(request, submittal_id: int) -> HttpResponse:
     try:
-        submittal = Submittal.objects.get(pk=submittal_id)
+        a_submittal = Submittal.objects.get(pk=submittal_id)
     except Submittal.DoesNotExist:
         raise Http404(f"Submittal with id {submittal_id} does not exist")
-    return render(request,'audit/submittal.html', {'submittal':submittal})
-    # return HttpResponse("Looking for sumbittal id %d" % submittal_id)
-
+    return render(request, 'audit/submittal.html', {'submittal': a_submittal})
