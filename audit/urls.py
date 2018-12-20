@@ -3,7 +3,12 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('',views.index,name="indexYY"),
-    # localhost:8000/audit/gartweezix
-    path('gartweezix',views.shmeng,name="rootnTootn")
+    # ex: /audit/
+    path('', views.index, name = "indexYY"),
+    # /audit/3
+    path('<int:submittal_id>', views.submittal, name = "Submittal"),
+    # ex: /audit/work/5
+    path('work/<int:work_id>', views.work, name = "work"),
+    # ex: '/audit/contrib/3
+    path('contrib/<int:c_id>', views.contributor, name = "Contributor")
 ]
