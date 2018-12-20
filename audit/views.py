@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.template import loader
+
 
 from .models import Submittal
 
@@ -9,10 +9,13 @@ from .models import Submittal
 
 def index(request):
     # Do it the long way first
-    template = loader.get_template('audit/submittals.html')
+    # template = loader.get_template()
+    # context = {'list_name': 'Submittals',
+    #            'submittals': Submittal.objects.all(), }
+    # return HttpResponse(template.render(context, request))
     context = {'list_name': 'Submittals',
                 'submittals': Submittal.objects.all(), }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'audit/submittals.html', context)
 
 def work(request, work_id: int):
     return HttpResponse(f"looking at  work {work_id}")
