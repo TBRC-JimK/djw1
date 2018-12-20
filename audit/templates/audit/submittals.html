@@ -9,7 +9,7 @@
     {%  if submittals %}
         <ul>
             {% for submittal in submittals %}
-        <li><a href="{%  url 'submittal'  submittal.id %}">{{ submittal.contributor.name }}&nbsp; {{  submittal.work.name }}</a></li>
+        <li><a href="{%  url 'audit:submittal'  submittal.id %}">{{ submittal.contributor.name }}&nbsp; {{  submittal.work.name }}</a></li>
     {% endfor %}
     </ul>
     {% else %}

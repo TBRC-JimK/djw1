@@ -2,6 +2,8 @@ from django.urls import path
 
 from . import views
 
+# Magic name - See audit templates
+app_name = 'audit'
 urlpatterns = [
     # ex: /audit/
     path('', views.index, name = "indexYY"),
