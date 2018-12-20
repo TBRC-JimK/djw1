@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ submittal }}</title>
+</head>
+<body>
+<table>
+    <tr>
+    <th>id</th>
+    <th>Contributor</th>
+        <th>Work Name</th>
+    </tr>
+    <tr>
+        <td>{{ submittal.id }}</td>
+        <td>{{ submittal.contributor }}</td>
+        <td>{{ submittal.work.name }}</td>
+    </tr>
+</table>
+</body>
+</html>

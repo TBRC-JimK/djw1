@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
 
 from .models import Submittal
@@ -24,5 +24,10 @@ def contributor(request,c_id: int):
     return HttpResponse(f"Looking up contributor {c_id}")
 
 def submittal(request, submittal_id: int):
-    return HttpResponse("Looking for sumbittal id %d" % submittal_id)
+    try:
+        submittal = Submittal.objects.get(pk=submittal_id)
+    except Submittal.DoesNotExist:
+        raise Http404(f"Submittal with id {submittal_id} does not exist")
+    return render(request,'audit/submittal.html', {'submittal':submittal})
+    # return HttpResponse("Looking for sumbittal id %d" % submittal_id)
 
