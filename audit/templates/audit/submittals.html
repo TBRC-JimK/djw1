@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Howdy {{  list_name }} Volks</title>
+</head>
+<body>
+
+    {%  if submittals %}
+        <ul>
+            {% for submittal in submittals %}
+        <li><a href="submittal/{{ submittal.id }}">{{ submittal.contributor.name }}&nbsp; {{  submittal.work.name }}</a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+
+        <p>No {{  list_name }} are available.</p>
+
+
+    {% endif %}
+
+</body>
+</html>
