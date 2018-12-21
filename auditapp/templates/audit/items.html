@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ list_name }}</title>
+</head>
+<body>
+
+{% if items %}
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Creation Date</th>
+            <th>Modification Date</th>
+        </tr>
+        {% for item in items %}
+
+            <tr>
+            <!-- todo: checkbox for each line -->
+                <td>
+                    <a href="{% url 'auditapp:item'  item.id %}">{{ item }}&nbsp;</a>
+                </td>
+                <td>{{ item.create_date }}</td>
+                <td>{{ item.mod_date }}</td>
+            </tr>
+
+        {% endfor %}
+    </table>
+{% else %}
+
+    <p>No {{ list_name }} are available.</p>
+
+
+{% endif %}
+
+</body>
+</html>

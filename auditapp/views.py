@@ -3,7 +3,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpRequest, Http404
 
-from .models import Submittal
+from .models import Submittal, Item
 
 
 # Create your views here.
@@ -15,12 +15,8 @@ def index(request):
     # context = {'list_name': 'Submittals',
     #            'submittals': Submittal.objects.all(), }
     # return HttpResponse(template.render(context, request))
-    context = {'list_name': 'Submittals', 'submittals': Submittal.objects.all(), }
-    return render(request, 'audit/submittals.html', context)
-
-
-def work(request, work_id: int):
-    return HttpResponse(f"looking at  work {work_id}")
+    context = {'list_name': 'Items', 'items': Item.objects.all(), }
+    return render(request, 'audit/items.html', context)
 
 
 def contributor(request, c_id: int):
@@ -54,3 +50,15 @@ def submittal_safe(request, submittal_id: int) -> HttpResponse:
     except Submittal.DoesNotExist:
         raise Http404(f"Submittal with id {submittal_id} does not exist")
     return render(request, 'audit/submittal.html', {'submittal': a_submittal})
+
+
+def item(request: HttpRequest, item_id: int) -> HttpResponse:
+    """
+    handle a request for a single item detail
+    :param request:
+    :param item_id:
+    :return:
+    """
+    an_item = get_object_or_404(Item, pk=item_id)
+
+    return render(request, 'audit/item.html', {'item': an_item})

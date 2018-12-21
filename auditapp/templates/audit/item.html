@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Item Detail</title>
+</head>
+<body>
+
+<h1>item Detail</h1>
+
+   <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Creation Date</th>
+            <th>Modification Date</th>
+        </tr>
+            <tr>
+            <!-- todo: checkbox for each line -->
+                <td>{{ item }}</td>
+                <td>{{ item.creation_date }}</td>
+                <td>{{ item.modification_date }}</td>
+            </tr>
+    </table>
+</body>
+</html>

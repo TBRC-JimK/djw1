@@ -51,3 +51,10 @@ class Submittal(models.Model):
 
     def __str__(self):
         return f"{self.contributor.name} -> {self.work_id} "
+
+class Test(models.Model):
+    """
+    Defines a test
+    """
+    friendly_name = models.CharField('Name', max_length=80)
+
