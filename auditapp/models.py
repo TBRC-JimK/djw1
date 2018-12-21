@@ -1,5 +1,6 @@
 from django.db import models
-
+# from bdrclib.auditlib import audittest
+from bdrclib.auditlib.audittest import AuditTestType
 
 # Create your models here.
 
@@ -56,5 +57,12 @@ class Test(models.Model):
     """
     Defines a test
     """
-    friendly_name = models.CharField('Name', max_length=80)
+
+    # See https://docs.python.org/3/library/enum.html for casting enum into int
+    user_name = models.CharField('Name', max_length=80)
+    test_geometry = models.IntegerField('Test Geometry','geometry', default= AuditTestType.COMPLETE_TREE.value)
+
+    def __str__(self):
+        return self.user_name
+
 

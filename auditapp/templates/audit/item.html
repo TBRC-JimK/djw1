@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+{%  comment %}
+Presents an item and a means for running tests.
+Expects:
+item: auditapp.models.
+{%  endcomment %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,8 +11,12 @@
 </head>
 <body>
 
-<h1>item Detail</h1>
+<h1>Item Detail</h1>
 
+{# Possibly come back here on test result #}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{%  url 'auditapp:InvokeTests' item.id %}" method=""post>
    <table border="1">
         <tr>
             <th>Name</th>
@@ -19,6 +28,8 @@
                 <td>{{ item }}</td>
                 <td>{{ item.creation_date }}</td>
                 <td>{{ item.modification_date }}</td>
+                <td></td>
+
             </tr>
     </table>
 </body>
