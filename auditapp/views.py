@@ -3,7 +3,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpRequest, Http404
 
-from .models import Submittal, Item
+from applib.models import Submittal, Item
 
 
 # Create your views here.

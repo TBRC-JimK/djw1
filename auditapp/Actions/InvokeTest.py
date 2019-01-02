@@ -6,7 +6,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpRequest
 
 
-from auditapp.models import  Item, Contributor
+from applib.models import  Item
+
 
 def invoke_test(request: HttpRequest ) -> HttpResponse:
     """
