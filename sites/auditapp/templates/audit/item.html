@@ -16,7 +16,9 @@ item: auditapp.models.
 {# Possibly come back here on test result #}
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="{%  url 'auditapp:InvokeTests' item.id %}" method=""post>
+<form action="{%  url 'auditapp:select_tests' item.id %}" method="post">
+    {% csrf_token %}
+
    <table border="1">
         <tr>
             <th>Name</th>
@@ -32,5 +34,7 @@ item: auditapp.models.
 
             </tr>
     </table>
+    <input type="submit" value="Select Tests"/>
+</form>
 </body>
 </html>

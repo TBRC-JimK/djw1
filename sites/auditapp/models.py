@@ -1,6 +1,6 @@
 from django.db import models
 # from bdrclib.auditlib import audittest
-from bdrclib.auditlib.audittest import AuditTestType
+from auditlib.audittest import AuditTestType
 
 # Create your models here.
 

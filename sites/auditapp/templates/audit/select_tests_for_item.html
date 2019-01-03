@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% comment %}
+ Allows a user to select of tests for an item
+Expected objects:
+(auditapp.models, except where noted)
+test_subject: Item object to test
+tests: Test collection
+
+{%  endcomment %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Launch a Test</title>
+</head>
+<body>
+<h1>{{ item }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'auditapp:run_tests_for_item_name' test_subject.id %}" method="post">
+{% csrf_token %}
+{% for a_test in tests.choice_set.all %}
+    <input type="checkbox" name="a_test" id="a_test{{ forloop.counter }}" value="{{ a_test.id }}" checked/>
+    <label for="a_test{{ forloop.counter }}">{{ a_test.user_name }}</label><br>
+{% endfor %}
+<input type="submit" value="tests_to_run">
+</form>
+</body>
+</html>

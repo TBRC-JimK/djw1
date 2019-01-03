@@ -1,9 +1,11 @@
 # Warning that the Django tutorial says that
 # shortcuts couple the model to the view
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, HttpRequest, Http404
+from .models import Item, Submittal, Test
 
-from .models import Submittal, Item
+
+# from .models import Submittal, Item
 
 
 # Create your views here.
@@ -52,7 +54,7 @@ def submittal_safe(request, submittal_id: int) -> HttpResponse:
     return render(request, 'audit/submittal.html', {'submittal': a_submittal})
 
 
-def item(request: HttpRequest, item_id: int) -> HttpResponse:
+def x_item(request: HttpRequest, item_id: int) -> HttpResponse:
     """
     handle a request for a single item detail
     :param request:
@@ -62,3 +64,44 @@ def item(request: HttpRequest, item_id: int) -> HttpResponse:
     an_item = get_object_or_404(Item, pk=item_id)
 
     return render(request, 'audit/item.html', {'item': an_item})
+
+
+def item(request: HttpRequest, item_id: int) -> HttpResponse:
+    """
+    Pull up the test selection view
+    :param request:
+    :param item_id:
+    :return: render test selection grid
+    """
+    item = get_object_or_404(Item, pk=item_id)
+    return render(request, 'audit/item.html', {'item': item} )
+
+
+def select_tests_for_item(request: HttpRequest, item_id: int) -> HttpResponse:
+    """
+    Launch the form to select tests for the item
+    :param request:
+    :param item_id:
+    :return:
+     """
+    # TODO: Add qualifiers to tests
+    tests = get_list_or_404(Test)
+    test_subject = get_object_or_404(Item, pk=item_id)
+    return render(request,'audit/select_tests_for_item.html',
+                  {
+                      'test_subject' : test_subject,
+                      'tests': tests
+                  })
+
+
+def run_tests_for_item(request: HttpRequest, tested_item_id: int) -> HttpResponse:
+    """
+    uses Request.POST['tests'] to identify tests to run.
+    :param request: context
+    :param tested_item_id: id of test
+    :return: test results view
+    """
+    return render(request,'audit/test_results_for_item.html')
+
+
+
